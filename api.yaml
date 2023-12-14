@@ -5,6 +5,40 @@ info:
   description: API for managing user information in a SaaS system.
 
 paths:
+  /api/users:
+    get:
+      summary: Get All Users
+      description: Retrieve a list of all users.
+      responses:
+        '200':
+          description: List of users retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '500':
+          description: Internal server error.
+
+    post:
+      summary: Create a User
+      description: Create a new user.
+      requestBody:
+        description: User information to create a new user.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully.
+        '400':
+          description: Bad request - Invalid input data.
+        '500':
+          description: Internal server error.
+
   /api/users/{userID}:
     get:
       summary: Get User by UserID
@@ -28,9 +62,9 @@ paths:
         '500':
           description: Internal server error.
 
-    post:
-      summary: Create or Update User
-      description: Create a new user or update an existing user's information.
+    put:
+      summary: Update User by UserID
+      description: Update an existing user's information by their unique userID.
       parameters:
         - in: path
           name: userID
@@ -39,17 +73,19 @@ paths:
           schema:
             type: string
       requestBody:
-        description: User information to create or update.
+        description: User information to update.
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
       responses:
-        '201':
-          description: User created or updated successfully.
+        '200':
+          description: User updated successfully.
         '400':
           description: Bad request - Invalid input data.
+        '404':
+          description: User not found.
         '500':
           description: Internal server error.
 
