@@ -25,6 +25,8 @@ paths:
           description: Solicitud incorrecta - Datos de entrada inválidos.
         '500':
           description: Error interno del servidor.
+      security:
+        - BearerAuth: []
 
     put:
       summary: Actualizar Información de Usuario y Suscripciones
@@ -45,6 +47,8 @@ paths:
           description: Usuario no encontrado.
         '500':
           description: Error interno del servidor.
+      security:
+        - BearerAuth: []
 
 components:
   schemas:
